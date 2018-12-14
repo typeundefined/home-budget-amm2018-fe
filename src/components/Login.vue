@@ -43,7 +43,20 @@ export default {
   },
   methods: {
     doLogin () {
-      console.log('IMPLEMENT ME')
+      var reqObj = {
+        username: this.username,
+        password: this.password
+      }
+
+      this.$http.post('auth/login', reqObj)
+        .then(response => {
+          this.showAlert = false
+          this.$emit('jwtUpdated', response.data.accessToken)
+        })
+        .catch(err => {
+          this.errorText = err.data.message
+          this.showAlert = true
+        })
     }
   }
 }

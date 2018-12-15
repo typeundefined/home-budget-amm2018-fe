@@ -1,68 +1,93 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm"></div>
-      <div class="col-sm card">
-        <div class="card-body">
-          <h3 class="card-title">Register a User</h3>
-          <b-alert :show="showAlert" variant="danger">{{errorText}}</b-alert>
-          <b-alert :show="showSuccess" variant="success">User {{username}} has been registered! Would you like to <router-link to="/login">log in</router-link>?</b-alert>
-          <br>
-          <form id="register">
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-card>
+        <b-alert :show="showAlert" variant="danger">{{errorText}}</b-alert>
+        <b-alert :show="showSuccess" variant="success">
+          User {{username}} has been registered! Would you like to
+          <router-link to="/login">log in</router-link>?
+        </b-alert>
+        <v-card-title primary-title>
+          <div>
+            <div class="headline">Register a User</div>
+          </div>
+        </v-card-title>
+        <v-card-text class="pt-4">
+          <v-form>
+            <v-text-field
+              label="Username"
+              v-model="username"
+              name="username"
+              id="username"
+              required
+            ></v-text-field>
+            <v-text-field
+              label="Full name"
+              v-model="fullname"
+              name="fullname"
+              id="fullname"
+              required
+            ></v-text-field>
+            <v-text-field
+              label="Password"
+              v-model="password"
+              type="password"
+              @change="checkPwd"
+              name="password"
+              id="pwd"
+            ></v-text-field>
+            <v-text-field
+              label="Repeat password"
+              v-model="password1"
+              type="password"
+              @change="checkPwd"
+              name="password1"
+              id="password1"
+              required
+            ></v-text-field>
             <div class="form-group">
-              <label for="username">Username: </label>
-              <input v-model="username" name="username" id="username">
+              <v-btn
+                justify-space-between
+                @click="register"
+                :disabled="pwdError != null"
+                variant="info"
+                color="info"
+              >Register</v-btn>
             </div>
-            <div class="form-group">
-              <label for="fullname">Full name: </label>
-              <input v-model="fullname" name="fullname" id="fullname">
-            </div>
-            <div class="form-group">
-              <label for="pwd">Password: </label>
-              <input v-model="password" @change="checkPwd" type="password" name="password" id="pwd">
-              <small :show="pwdError != null" class="form-text text-error">{{pwdError}}</small>
-            </div>
-            <div class="form-group">
-              <label for="pwd1">Repeat password: </label>
-              <input v-model="password1" @change="checkPwd" type="password" id="pwd1">
-            </div>
-            <b-btn :disabled="pwdError != null" @click="register" variant="info" class="m-1">Register</b-btn>
-
-          </form>
-        </div>
-      </div>
-      <div class="col-sm"></div>
-    </div>
-  </div>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: 'Register',
-  data () {
+  name: "Register",
+  data() {
     return {
       showAlert: false,
       showSuccess: false,
-      errorText: '',
+      errorText: "",
       pwdError: null,
-      username: '',
-      fullname: '',
-      password: '',
-      password1: ''
-    }
+      username: "",
+      fullname: "",
+      password: "",
+      password1: ""
+    };
   },
   methods: {
-    checkPwd () {
-      this.pwdError = null
+    checkPwd() {
+      this.pwdError = null;
       if (this.password !== this.password1) {
-        this.pwdError = 'Passwords do not match'
+        this.pwdError = "Passwords do not match";
       }
     },
-    register () {
-      console.log('IMPLEMENT ME')
+    register() {
+      console.log("IMPLEMENT ME");
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

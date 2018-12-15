@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import BootstrapVue from 'bootstrap-vue'
 import VueResource from 'vue-resource'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.css'
@@ -15,7 +14,6 @@ import {
   store
 } from './store/store'
 
-Vue.use(BootstrapVue)
 Vue.use(VueResource)
 Vue.use(Vuetify)
 

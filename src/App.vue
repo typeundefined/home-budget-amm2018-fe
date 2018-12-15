@@ -1,24 +1,25 @@
 <template>
-  <v-app>
+  <v-app :dark="darkTheme">
     <v-content>
-      <v-container fluid>
-        <v-slide-y-transition mode="out-in">
-          <v-layout column align-center>
-            <snackbar/>
-            <router-view
-              v-on:jwtUpdated="$emit('jwtUpdated', $event)"
-              v-on:logout="$emit('logout')"
-            />
-          </v-layout>
-        </v-slide-y-transition>
-      </v-container>
+      <snackbar/>
+      <router-view v-on:jwtUpdated="$emit('jwtUpdated', $event)" v-on:logout="$emit('logout')"/>
     </v-content>
+    <v-footer height="auto">
+      <v-container fluid>
+        <v-switch label="Dark Theme" v-model="darkTheme"></v-switch>
+      </v-container>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
 import snackbar from "@/components/Snackbar";
 export default {
+  data() {
+    return {
+      darkTheme: true
+    };
+  },
   components: {
     snackbar
   }

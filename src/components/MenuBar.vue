@@ -1,29 +1,38 @@
 <template>
-  <b-nav tabs>
-    <router-link class="navbar-brand" to="/">Home Budget</router-link>
-    <b-nav-item active>Home</b-nav-item>
-    <b-nav-item>Currencies</b-nav-item>
-    <b-btn class="ml-auto btn btn-outline-danger" @click="$emit('logout')">Logout</b-btn>
-  </b-nav>
+  <v-toolbar>
+    <v-toolbar-title>Home Budget</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-toolbar-items>
+      <v-btn flat >Home</v-btn>
+      <v-btn flat >Currencies</v-btn>
+      <v-btn flat  color="red" @click="$emit('logout')">Logout</v-btn>
+      <v-menu :nudge-width="100">
+        <v-toolbar-title slot="activator">
+          <v-btn icon>
+            <v-icon>more_vert</v-icon>
+          </v-btn>
+        </v-toolbar-title>
+
+        <v-list>
+          <router-link :to="{name: 'New Account'}" tag="v-list-tile">
+            <span>New Account</span>
+          </router-link>
+        </v-list>
+      </v-menu>
+    </v-toolbar-items>
+  </v-toolbar>
 </template>
 
 <script>
 export default {
-  name: 'menu-bar',
-  data () {
-    return {
-    }
+  name: "menu-bar",
+  data() {
+    return {};
   },
-  methods: {
-  }
-}
+  methods: {}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-a.navbar-brand {
-  margin-left: 2rem;
-  margin-right: 4rem;
-}
-
 </style>

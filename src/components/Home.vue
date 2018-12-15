@@ -1,59 +1,61 @@
 <template>
-<div>
-  <menu-bar v-on:logout="$emit('logout')" />
-  <b-alert :show="showAlert" variant="danger">{{errorText}}</b-alert>
-  <div class="d-flex">
-    <div class="d-flex p-3 flex-column">
-      <b-btn class="btn-success mb-3" @click="createAccount">New account</b-btn>
-      <b-btn class="mb-3">Add expense</b-btn>
-    </div>
-    <div class="d-flex flex-wrap p-3">
-      <account-short v-for="{id, name, description, currency, currentValue} in accountList" :key="id"
-            :id="id"
-            :name="name"
-            :description="description"
-            :currency="currency.code"
-            :amount="currentValue"
+  <div>
+    <menu-bar v-on:logout="$emit('logout')"/>
+    <b-alert :show="showAlert" variant="danger">{{errorText}}</b-alert>
+    <v-container grid-list-xl>
+      <account-short
+        v-for="{id, name, description, currency, currentValue} in accountList"
+        :key="id"
+        :id="id"
+        :name="name"
+        :description="description"
+        :currency="currency.code"
+        :amount="currentValue"
       />
-    </div>
+    </v-container>
+    <v-fab-transition>
+      <v-btn dark fab fixed bottom right color="pink">
+        <v-icon>add</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </div>
-</div>
 </template>
 
 <script>
-import AccountShort from '@/components/AccountShort'
-import MenuBar from '@/components/MenuBar'
+import AccountShort from "@/components/AccountShort";
+import MenuBar from "@/components/MenuBar";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    'account-short': AccountShort,
-    'menu-bar': MenuBar
+    "account-short": AccountShort,
+    "menu-bar": MenuBar
   },
   methods: {
-    loadAccounts () {
-      this.$http.get('account').then(resp => {
-        this.accountList = resp.data
-      }).catch(err => {
-        // TODO: improve this
-        console.log(err)
-      })
+    loadAccounts() {
+      this.$http
+        .get("account")
+        .then(resp => {
+          this.accountList = resp.data;
+        })
+        .catch(err => {
+          // TODO: improve this
+          console.log(err);
+        });
     },
-    createAccount () {
-      this.$router.push({name: 'NewAccount'})
-    }
   },
-  data () {
+  data() {
     return {
       accountList: [],
-      errorText: '',
+      darkTheme: false,
+      errorText: "",
       showAlert: false
-    }
+    };
   },
-  mounted () {
-    this.loadAccounts()
+  mounted() {
+    this.loadAccounts();
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

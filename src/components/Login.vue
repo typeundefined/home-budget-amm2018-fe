@@ -1,65 +1,70 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm"></div>
-      <div class="col-sm card">
-        <div class="card-body">
-          <h3 class="card-title">Home Budget</h3>
-          <b-alert :show="showAlert" variant="danger">{{errorText}}</b-alert>
-          <br>
-          <form id="login">
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
+      <v-card>
+        <v-card-text class="pt-4">
+          <v-form>
+            <v-text-field
+              label="Username"
+              v-model="username"
+              name="username"
+              id="username"
+              required
+            ></v-text-field>
+            <v-text-field
+              label="Password"
+              v-model="password"
+              type="password"
+              name="password"
+              id="pwd"
+            ></v-text-field>
             <div class="form-group">
-              <label for="username">Username: </label>
-              <input v-model="username" name="username" id="username">
+              <v-btn justify-space-between to="/register">Register</v-btn>
+              <v-btn justify-space-between @click="doLogin" variant="info" color="info">Log in</v-btn>
             </div>
-            <div class="form-group">
-              <label for="pwd">Password: </label>
-              <input v-model="password" type="password" name="password" id="pwd">
-            </div>
-            <div class="form-group">
-              <router-link to="/register">Register</router-link>
-              <b-btn @click="doLogin" variant="info" class="m-1">Log in</b-btn>
-            </div>
-
-          </form>
-        </div>
-      </div>
-      <div class="col-sm"></div>
-    </div>
-
-  </div>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
-  name: 'Login',
-  data () {
+  name: "Login",
+  data() {
     return {
       showAlert: false,
-      errorText: '',
-      username: '',
-      password: ''
-    }
+      errorText: "",
+      username: "",
+      password: ""
+    };
   },
   methods: {
-    doLogin () {
+    ...mapMutations(["showSnackbar", "closeSnackbar"]),
+    openSnackbar(message) {
+      this.showSnackbar({ text: message });
+    },
+    doLogin() {
       var reqObj = {
         username: this.username,
         password: this.password
-      }
+      };
 
-      this.$http.post('auth/login', reqObj)
+      this.$http
+        .post("auth/login", reqObj)
         .then(response => {
-          this.showAlert = false
-          this.$emit('jwtUpdated', response.data.accessToken)
+          this.showAlert = false;
+          this.$emit("jwtUpdated", response.data.accessToken);
         })
         .catch(err => {
-          this.errorText = err.data.message
-          this.showAlert = true
-        })
+          //this.$emit("showSnackbar", err.data.message, 5000, "bottom");
+          //this.openSnackbar(err.data.message)
+        });
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

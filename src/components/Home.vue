@@ -1,7 +1,6 @@
 <template>
   <div>
     <menu-bar v-on:logout="$emit('logout')"/>
-    <b-alert :show="showAlert" variant="danger">{{errorText}}</b-alert>
     <v-container grid-list-xl>
       <account-short
         v-for="{id, name, description, currency, currentValue} in accountList"
@@ -39,8 +38,7 @@ export default {
           this.accountList = resp.data;
         })
         .catch(err => {
-          // TODO: improve this
-          console.log(err);
+          console.log(err)
         });
     },
   },

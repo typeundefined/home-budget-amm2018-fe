@@ -5,30 +5,62 @@ import App from './App'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import VueResource from 'vue-resource'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import {
+  store
+} from './store/store'
+
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
+Vue.use(Vuetify)
 
 Vue.config.productionTip = false
 Vue.http.options.root = process.env.ROOT_API
+Vue.http.interceptors.push(
+  function (request, next) {
+    next(
+      function (response) {
+        if (response.status >= 400 && response.status <= 599) {
+          var text = response.data.message
+          if (!text) {
+            text = response.statusText
+          }
+          store.commit('showSnackbar', {
+            text: text,
+            color: 'error'
+          })
+        }
+      }
+    )
+  }
+)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  store,
+  components: {
+    App
+  },
   methods: {
-    setAccessKey (newJwt) {
+    setAccessKey(newJwt) {
       Vue.http.headers.common['Authorization'] = 'Bearer ' + newJwt
       console.log(this.$http.headers.common)
-      this.$router.push({name: 'Home'})
+      this.$router.push({
+        name: 'Home'
+      })
     },
-    logout () {
+    logout() {
       delete Vue.http.headers.common['Authorization']
-      this.$router.push({name: 'Login'})
+      this.$router.push({
+        name: 'Login'
+      })
     }
   },
   template: '<App v-on:jwtUpdated="setAccessKey" v-on:logout="logout" />'

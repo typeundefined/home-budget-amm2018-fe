@@ -1,17 +1,21 @@
 <template>
   <div>
     <menu-bar v-on:logout="$emit('logout')"/>
-    <v-container grid-list-xl>
-      <account-short
-        v-for="{id, name, description, currency, currentValue} in accountList"
-        :key="id"
-        :id="id"
-        :name="name"
-        :description="description"
-        :currency="currency.code"
-        :amount="currentValue"
-      />
-    </v-container>
+    <v-flex xs12>
+      <v-container grid-list-xl>
+        <v-layout row wrap align-center>
+          <account-short
+            v-for="{id, name, description, currency, currentValue} in accountList"
+            :key="id"
+            :id="id"
+            :name="name"
+            :description="description"
+            :currency="currency.code"
+            :amount="currentValue"
+          />
+        </v-layout>
+      </v-container>
+    </v-flex>
     <v-fab-transition>
       <v-btn dark fab fixed bottom right color="pink">
         <v-icon>add</v-icon>
@@ -38,9 +42,9 @@ export default {
           this.accountList = resp.data;
         })
         .catch(err => {
-          console.log(err)
+          console.log(err);
         });
-    },
+    }
   },
   data() {
     return {

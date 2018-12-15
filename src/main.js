@@ -20,10 +20,29 @@ Vue.http.interceptors.push(
   function (request, next) {
     next(
       function (response) {
-        if (response.status >= 400 && response.status <= 599) {
+        if (!response.ok) {
           var text = response.data.message
+          // TODO: Improve non-Spring errors handling
           if (!text) {
-            text = response.statusText
+            switch (response.status) {
+              case 400:
+                text = 'Bad request'
+                break
+              case 403:
+                text = 'Not authorized'
+                break
+              case 404:
+                text = 'Not found'
+                break
+              case 500:
+                text = 'Server error'
+                break
+              case 0:
+                text = 'Request aborted'
+                break
+              default:
+                text = 'Unknown error ' + status
+            }
           }
           store.commit('showSnackbar', {
             text: text,

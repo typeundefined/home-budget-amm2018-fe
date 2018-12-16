@@ -38,14 +38,13 @@ export default {
         }})
         .then(resp => {
           var data = resp.data;
-          this.transactions = resp.data.content;
+          this.transactions = data.content;
 
-          var pagination = {
+          this.pagination = {
             numberOfElements: data.numberOfElements,
             totalPages: data.totalPages,
             pageNumber: data.number + 1
           };
-          this.pagination = pagination
         })
         .catch(err => {
           console.log(err);

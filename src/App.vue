@@ -1,6 +1,7 @@
 <template>
   <v-app :dark="darkTheme">
     <v-content>
+      <menu-bar v-on:logout="$emit('logout')"/>
       <snackbar/>
       <router-view v-on:jwtUpdated="$emit('jwtUpdated', $event)" v-on:logout="$emit('logout')"/>
     </v-content>
@@ -14,6 +15,7 @@
 
 <script>
 import snackbar from "@/components/Snackbar";
+import MenuBar from "@/components/MenuBar";
 export default {
   data() {
     return {
@@ -21,7 +23,8 @@ export default {
     };
   },
   components: {
-    snackbar
+    snackbar: snackbar,
+    "menu-bar": MenuBar
   }
 };
 </script>

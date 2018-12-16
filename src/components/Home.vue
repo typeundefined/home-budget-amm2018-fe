@@ -1,6 +1,5 @@
 <template>
   <div>
-    <menu-bar v-on:logout="$emit('logout')"/>
     <v-flex xs12>
       <v-container grid-list-xl>
         <v-layout row wrap align-center>
@@ -26,13 +25,11 @@
 
 <script>
 import AccountShort from "@/components/AccountShort";
-import MenuBar from "@/components/MenuBar";
 
 export default {
   name: "Home",
   components: {
     "account-short": AccountShort,
-    "menu-bar": MenuBar
   },
   methods: {
     loadAccounts() {

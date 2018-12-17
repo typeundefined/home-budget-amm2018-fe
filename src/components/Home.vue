@@ -2,7 +2,11 @@
   <div>
     <v-flex xs12>
       <v-container grid-list-xl>
-        <v-layout row wrap align-center>
+        <v-layout
+          row
+          wrap
+          align-center
+        >
           <account-short
             v-for="{id, name, description, currency, currentValue} in accountList"
             :key="id"
@@ -16,7 +20,14 @@
       </v-container>
     </v-flex>
     <v-fab-transition>
-      <v-btn dark fab fixed bottom right color="pink">
+      <v-btn
+        dark
+        fab
+        fixed
+        bottom
+        right
+        color="pink"
+      >
         <v-icon>add</v-icon>
       </v-btn>
     </v-fab-transition>

@@ -3,9 +3,19 @@
     <v-toolbar-title>Home Budget</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>
-      <v-btn flat :to="'/'">Home</v-btn>
-      <v-btn flat :to="'/currencies'" >Currencies</v-btn>
-      <v-btn flat  color="red" @click="$emit('logout')">Logout</v-btn>
+      <v-btn
+        flat
+        :to="'/'"
+      >Home</v-btn>
+      <v-btn
+        flat
+        :to="'/currencies'"
+      >Currencies</v-btn>
+      <v-btn
+        flat
+        color="red"
+        @click="$emit('logout')"
+      >Logout</v-btn>
       <v-menu :nudge-width="100">
         <v-toolbar-title slot="activator">
           <v-btn icon>
@@ -14,7 +24,10 @@
         </v-toolbar-title>
 
         <v-list>
-          <router-link :to="{name: 'New Account'}" tag="v-list-tile">
+          <router-link
+            :to="{name: 'New Account'}"
+            tag="v-list-tile"
+          >
             <span>New Account</span>
           </router-link>
         </v-list>
@@ -26,7 +39,7 @@
 <script>
 export default {
   name: 'menu-bar',
-  data () {
+  data() {
     return {}
   },
   methods: {}

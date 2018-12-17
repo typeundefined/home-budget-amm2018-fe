@@ -1,7 +1,17 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout align-center justify-center>
-      <v-flex xs12 sm8 md4>
+  <v-container
+    fluid
+    fill-height
+  >
+    <v-layout
+      align-center
+      justify-center
+    >
+      <v-flex
+        xs12
+        sm8
+        md4
+      >
         <v-card>
           <v-card-text class="pt-4">
             <v-form>
@@ -20,8 +30,16 @@
                 id="pwd"
               ></v-text-field>
               <div class="form-group">
-                <v-btn justify-space-between to="/register">Register</v-btn>
-                <v-btn justify-space-between @click="doLogin" variant="info" color="info">Log in</v-btn>
+                <v-btn
+                  justify-space-between
+                  to="/register"
+                >Register</v-btn>
+                <v-btn
+                  justify-space-between
+                  @click="doLogin"
+                  variant="info"
+                  color="info"
+                >Log in</v-btn>
               </div>
             </v-form>
           </v-card-text>
@@ -35,7 +53,7 @@
 import { mapMutations } from 'vuex'
 export default {
   name: 'Login',
-  data () {
+  data() {
     return {
       showAlert: false,
       errorText: '',
@@ -45,10 +63,10 @@ export default {
   },
   methods: {
     ...mapMutations(['showSnackbar', 'closeSnackbar']),
-    openSnackbar (message) {
+    openSnackbar(message) {
       this.showSnackbar({ text: message })
     },
-    doLogin () {
+    doLogin() {
       var reqObj = {
         username: this.username,
         password: this.password

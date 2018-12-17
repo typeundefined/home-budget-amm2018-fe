@@ -1,7 +1,15 @@
 <template>
   <v-flex>
-    <v-data-table :headers="headers" :items="transactions" hide-actions class="elevation-1">
-      <template slot="items" slot-scope="props">
+    <v-data-table
+      :headers="headers"
+      :items="transactions"
+      hide-actions
+      class="elevation-1"
+    >
+      <template
+        slot="items"
+        slot-scope="props"
+      >
         <td>{{ props.item.id }}</td>
         <td class="text-xs-right">{{ props.item.category }}</td>
         <td class="text-xs-right">{{ props.item.amount }}</td>
@@ -26,7 +34,7 @@ export default {
   name: 'account-details',
   props: ['id'],
   methods: {
-    loadAccountDetails(pageNumber = 1, numberOfElements = 10) {
+    loadAccountDetails (pageNumber = 1, numberOfElements = 10) {
       this.$http
         .get('account/' + this.id + '/transactions/', {
           params: {
@@ -49,7 +57,7 @@ export default {
         })
     }
   },
-  data() {
+  data () {
     return {
       transactions: [],
       pagination: {},
@@ -64,7 +72,7 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
     this.loadAccountDetails()
   }
 }

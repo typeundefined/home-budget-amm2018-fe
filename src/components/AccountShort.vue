@@ -1,5 +1,8 @@
 <template>
-  <v-flex xs12 md4>
+  <v-flex
+    xs12
+    md4
+  >
     <v-card>
       <v-card-title primary-title>
         <div>
@@ -10,7 +13,11 @@
       <v-card-text>{{description}}</v-card-text>
 
       <v-card-actions>
-        <v-btn :to="'/account/' + id" flat class="red--text">View details</v-btn>
+        <v-btn
+          :to="'/account/' + id"
+          flat
+          class="red--text"
+        >View details</v-btn>
       </v-card-actions>
 
     </v-card>

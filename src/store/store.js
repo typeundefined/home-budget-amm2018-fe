@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
-    showSnackbar (state, payload) {
+    showSnackbar(state, payload) {
       state.snackbar.text = payload.text
       state.snackbar.color = payload.color
       state.snackbar.multiline = (payload.text.length > 50)
@@ -29,7 +29,7 @@ export const store = new Vuex.Store({
 
       state.snackbar.visible = true
     },
-    closeSnackbar (state) {
+    closeSnackbar(state) {
       state.snackbar.visible = false
       state.snackbar.multiline = false
       state.snackbar.timeout = 3000

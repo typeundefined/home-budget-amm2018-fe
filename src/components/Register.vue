@@ -1,7 +1,17 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout align-center justify-center>
-      <v-flex xs12 sm8 md4>
+  <v-container
+    fluid
+    fill-height
+  >
+    <v-layout
+      align-center
+      justify-center
+    >
+      <v-flex
+        xs12
+        sm8
+        md4
+      >
         <v-card>
           <v-card-title primary-title>
             <div>
@@ -66,7 +76,7 @@
 import { mapMutations } from 'vuex'
 export default {
   name: 'Register',
-  data () {
+  data() {
     return {
       showAlert: false,
       showSuccess: false,
@@ -82,16 +92,16 @@ export default {
   },
   methods: {
     ...mapMutations(['showSnackbar', 'closeSnackbar']),
-    openSnackbar (message, color) {
+    openSnackbar(message, color) {
       this.showSnackbar({ text: message, color: color })
     },
-    checkPwd () {
+    checkPwd() {
       this.pwdError = null
       if (this.password !== this.password1) {
         this.pwdError = 'Passwords do not match'
       }
     },
-    register () {
+    register() {
       this.openSnackbar(
         `Username ${this.username} has been registered! Redirect to homepage.`,
         'info'

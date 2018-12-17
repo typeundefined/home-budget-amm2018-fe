@@ -7,7 +7,11 @@
     v-model="snackbar.visible"
   >
     {{ snackbar.text }}
-    <v-btn flat dark @click.native="closeSnackbar">Close</v-btn>
+    <v-btn
+      flat
+      dark
+      @click.native="closeSnackbar"
+    >Close</v-btn>
   </v-snackbar>
 </template>
 
@@ -15,7 +19,7 @@
 import { mapMutations } from 'vuex'
 export default {
   computed: {
-    snackbar () {
+    snackbar() {
       return this.$store.state.snackbar
     }
   },

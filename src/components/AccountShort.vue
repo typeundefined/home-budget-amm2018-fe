@@ -19,13 +19,13 @@
 
 <script>
 export default {
-  name: "account-short",
-  props: ["id", "name", "description", "currency", "amount"],
-  data() {
-    return {};
+  name: 'account-short',
+  props: ['id', 'name', 'description', 'currency', 'amount'],
+  data () {
+    return {}
   },
   methods: {}
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

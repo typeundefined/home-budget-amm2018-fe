@@ -24,37 +24,37 @@
 </template>
 
 <script>
-import AccountShort from "@/components/AccountShort";
+import AccountShort from '@/components/AccountShort'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
-    "account-short": AccountShort,
+    'account-short': AccountShort
   },
   methods: {
     loadAccounts() {
       this.$http
-        .get("account")
+        .get('account')
         .then(resp => {
-          this.accountList = resp.data;
+          this.accountList = resp.data
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     }
   },
   data() {
     return {
       accountList: [],
       darkTheme: false,
-      errorText: "",
+      errorText: '',
       showAlert: false
-    };
+    }
   },
   mounted() {
-    this.loadAccounts();
+    this.loadAccounts()
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -2,7 +2,7 @@
   <v-flex>
     <v-list two-line>
       <template v-for="(currency, index) in currencies">
-        <v-list-tile :key="currency.code" @click>
+        <v-list-tile :key="currency.code">
           <v-list-tile-content>
             <v-list-tile-title v-html="currency.code"></v-list-tile-title>
             <v-list-tile-sub-title v-html="currency.humanReadableName"></v-list-tile-sub-title>
@@ -16,28 +16,27 @@
 
 <script>
 export default {
-  name: "currencies",
+  name: 'currencies',
   props: [],
   methods: {
     loadCurrencies() {
       this.$http
-        .get("currency/")
+        .get('currency/')
         .then(resp => {
-          this.currencies = resp.data;
+          this.currencies = resp.data
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     }
   },
   data() {
     return {
       currencies: []
-    };
+    }
   },
   mounted() {
-    this.loadCurrencies();
+    this.loadCurrencies()
   }
-};
+}
 </script>
-

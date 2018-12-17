@@ -32,38 +32,38 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations } from 'vuex'
 export default {
-  name: "Login",
-  data() {
+  name: 'Login',
+  data () {
     return {
       showAlert: false,
-      errorText: "",
-      username: "",
-      password: ""
-    };
+      errorText: '',
+      username: '',
+      password: ''
+    }
   },
   methods: {
-    ...mapMutations(["showSnackbar", "closeSnackbar"]),
-    openSnackbar(message) {
-      this.showSnackbar({ text: message });
+    ...mapMutations(['showSnackbar', 'closeSnackbar']),
+    openSnackbar (message) {
+      this.showSnackbar({ text: message })
     },
-    doLogin() {
+    doLogin () {
       var reqObj = {
         username: this.username,
         password: this.password
-      };
+      }
 
-      this.$http.post("auth/login", reqObj).then(response => {
-        this.showAlert = false;
-        this.$emit("jwtUpdated", response.data.accessToken);
+      this.$http.post('auth/login', reqObj).then(response => {
+        this.showAlert = false
+        this.$emit('jwtUpdated', response.data.accessToken)
       }).catch(err => {
         console.log(err)
       }
-      );
+      )
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

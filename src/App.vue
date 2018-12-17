@@ -14,17 +14,17 @@
 </template>
 
 <script>
-import snackbar from "@/components/Snackbar";
-import MenuBar from "@/components/MenuBar";
+import snackbar from '@/components/Snackbar'
+import MenuBar from '@/components/MenuBar'
 export default {
   data() {
     return {
       darkTheme: true
-    };
+    }
   },
   components: {
     snackbar: snackbar,
-    "menu-bar": MenuBar
+    'menu-bar': MenuBar
   }
-};
+}
 </script>

@@ -63,46 +63,46 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations } from 'vuex'
 export default {
-  name: "Register",
-  data() {
+  name: 'Register',
+  data () {
     return {
       showAlert: false,
       showSuccess: false,
-      errorText: "",
+      errorText: '',
       pwdError: null,
-      username: "",
-      usernameRules: [v => !!v || "Username is required"],
-      fullname: "",
-      fullnameRules: [v => !!v || "Full Name is required"],
-      password: "",
-      password1: ""
-    };
+      username: '',
+      usernameRules: [v => !!v || 'Username is required'],
+      fullname: '',
+      fullnameRules: [v => !!v || 'Full Name is required'],
+      password: '',
+      password1: ''
+    }
   },
   methods: {
-    ...mapMutations(["showSnackbar", "closeSnackbar"]),
-    openSnackbar(message, color) {
-      this.showSnackbar({ text: message, color: color });
+    ...mapMutations(['showSnackbar', 'closeSnackbar']),
+    openSnackbar (message, color) {
+      this.showSnackbar({ text: message, color: color })
     },
-    checkPwd() {
-      this.pwdError = null;
+    checkPwd () {
+      this.pwdError = null
       if (this.password !== this.password1) {
-        this.pwdError = "Passwords do not match";
+        this.pwdError = 'Passwords do not match'
       }
     },
-    register() {
+    register () {
       this.openSnackbar(
-        "Username ${username} has been registered! Redirect to homepage.",
-        "info"
-      );
+        `Username ${this.username} has been registered! Redirect to homepage.`,
+        'info'
+      )
       this.$router.push({
-        name: "Home"
-      });
+        name: 'Home'
+      })
       // TODO: Implement
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

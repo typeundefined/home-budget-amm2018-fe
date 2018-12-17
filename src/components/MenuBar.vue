@@ -25,12 +25,12 @@
 
 <script>
 export default {
-  name: "menu-bar",
-  data() {
-    return {};
+  name: 'menu-bar',
+  data () {
+    return {}
   },
   methods: {}
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

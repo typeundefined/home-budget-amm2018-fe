@@ -10,28 +10,26 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: Home
-    }, {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    }, {
-      path: '/register',
-      name: 'Register',
-      component: Register
-    }, {
-      path: '/account/:id',
-      name: 'AccountDetails',
-      component: AccountDetails,
-      props: true
-    }, {
-      path: '/currencies',
-      name: 'Currencies',
-      component: Currencies
-    }
-  ]
+  routes: [{
+    path: '/',
+    name: 'Home',
+    component: Home
+  }, {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  }, {
+    path: '/register',
+    name: 'Register',
+    component: Register
+  }, {
+    path: '/account/:id',
+    name: 'AccountDetails',
+    component: AccountDetails,
+    props: true
+  }, {
+    path: '/currencies',
+    name: 'Currencies',
+    component: Currencies
+  }]
 })

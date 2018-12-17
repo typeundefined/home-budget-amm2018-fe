@@ -15,7 +15,7 @@
 import { mapMutations } from 'vuex'
 export default {
   computed: {
-    snackbar() {
+    snackbar () {
       return this.$store.state.snackbar
     }
   },

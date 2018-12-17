@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import AccountDetails from '@/components/AccountDetails'
+import Currencies from '@/components/Currencies'
 
 Vue.use(Router)
 
@@ -27,6 +28,10 @@ export default new Router({
       name: 'AccountDetails',
       component: AccountDetails,
       props: true
+    }, {
+      path: '/currencies',
+      name: 'Currencies',
+      component: Currencies
     }
   ]
 })

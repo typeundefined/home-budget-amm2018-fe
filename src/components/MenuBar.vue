@@ -3,8 +3,8 @@
     <v-toolbar-title>Home Budget</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>
-      <v-btn flat >Home</v-btn>
-      <v-btn flat >Currencies</v-btn>
+      <v-btn flat :to="'/'">Home</v-btn>
+      <v-btn flat :to="'/currencies'" >Currencies</v-btn>
       <v-btn flat  color="red" @click="$emit('logout')">Logout</v-btn>
       <v-menu :nudge-width="100">
         <v-toolbar-title slot="activator">

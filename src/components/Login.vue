@@ -70,13 +70,6 @@ export default {
         .catch(error => {
           console.log(error)
         })
-      // AuthService.login(this.username, this.password)
-      //   .then(response => {
-      //     this.showAlert = false
-      //     this.$emit('jwtUpdated', response.data.accessToken)
-      //   }).catch(err => {
-      //     console.log(err)
-      //   })
     }
   }
 }

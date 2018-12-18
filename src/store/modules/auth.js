@@ -27,6 +27,11 @@ const actions = {
         commit('setAccessToken', response.data.accessToken)
       })
   },
+  authenticate({ commit }) {
+    return AuthService.authenticate().then((data) => {
+      commit('setLoggedIn', true)
+    })
+  },
   logout({ commit }) {
     commit('setLoggedIn', false)
     commit('clearAccessToken')

@@ -9,7 +9,7 @@ import 'vuetify/dist/vuetify.css'
 import store from './store/store'
 import router from './router'
 
-import { beforeRequestSuccess } from './interceptors/auth'
+import { beforeRequestSuccess, onError } from './interceptors/auth'
 
 function handleError(error) {
   var text = 'Unknown error'
@@ -52,6 +52,7 @@ Axios.interceptors.response.use(
   }
 )
 Axios.interceptors.request.use(beforeRequestSuccess)
+Axios.interceptors.response.use(response => response, onError)
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false

@@ -5,9 +5,6 @@ const onError = (error) => {
     case 401:
       store.dispatch('auth/logout')
       break
-    case 403:
-      store.dispatch('auth/logout')
-      break
     default:
       break
   }

@@ -6,14 +6,18 @@ import Register from '@/components/Register'
 import AccountDetails from '@/components/AccountDetails'
 import Currencies from '@/components/Currencies'
 
+import Init from './guards/Init'
+import IsLoggedIn from './guards/IsLoggedIn'
+
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [{
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: IsLoggedIn
   }, {
     path: '/login',
     name: 'Login',
@@ -26,10 +30,16 @@ export default new Router({
     path: '/account/:id',
     name: 'AccountDetails',
     component: AccountDetails,
-    props: true
+    props: true,
+    beforeEnter: IsLoggedIn
   }, {
     path: '/currencies',
     name: 'Currencies',
-    component: Currencies
+    component: Currencies,
+    beforeEnter: IsLoggedIn
   }]
 })
+
+router.beforeEach(Init)
+
+export default router

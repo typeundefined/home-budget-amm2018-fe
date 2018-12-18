@@ -14,7 +14,7 @@
       <v-btn
         flat
         color="red"
-        @click="$emit('logout')"
+        @click="logoutUser"
       >Logout</v-btn>
       <v-menu :nudge-width="100">
         <v-toolbar-title slot="activator">
@@ -37,12 +37,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'menu-bar',
   data() {
     return {}
   },
-  methods: {}
+  methods: {
+    ...mapActions({
+      logout: 'auth/logout'
+    }),
+    logoutUser() {
+      this.logout().then(() => { this.$router.push({ path: '/login' }) })
+    }
+  }
 }
 </script>
 

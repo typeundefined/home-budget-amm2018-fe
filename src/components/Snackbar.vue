@@ -24,7 +24,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['closeSnackbar'])
+    ...mapMutations(['snackbar/closeSnackbar'])
   }
 }
 </script>

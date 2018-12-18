@@ -2,14 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
 import Vuetify from 'vuetify'
 import Axios from 'axios'
 import 'vuetify/dist/vuetify.css'
 
-import {
-  store
-} from './store/store'
+import store from './store/store'
+import router from './router'
+
+import { beforeRequestSuccess } from './interceptors/auth'
 
 function handleError(error) {
   var text = 'Unknown error'
@@ -40,7 +40,7 @@ function handleError(error) {
   } else if (error.message) {
     text = error.message
   }
-  store.commit('showError', text)
+  store.commit('snackbar/showError', text)
 }
 
 Axios.defaults.baseURL = process.env.ROOT_API
@@ -51,6 +51,7 @@ Axios.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+Axios.interceptors.request.use(beforeRequestSuccess)
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false

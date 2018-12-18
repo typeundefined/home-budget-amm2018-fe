@@ -14,7 +14,7 @@
       >
         <v-card>
           <v-card-text class="pt-4">
-            <v-form>
+            <v-form @keyup.native.enter="doLogin">
               <v-text-field
                 label="Username"
                 v-model="username"
@@ -50,8 +50,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import AuthService from '../services/auth'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Login',
@@ -64,18 +63,20 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['showSnackbar', 'closeSnackbar']),
-    openSnackbar(message) {
-      this.showSnackbar({ text: message })
-    },
+    ...mapActions({ login: 'auth/login' }),
     doLogin() {
-      AuthService.login(this.username, this.password)
-        .then(response => {
-          this.showAlert = false
-          this.$emit('jwtUpdated', response.data.accessToken)
-        }).catch(err => {
-          console.log(err)
+      this.login({username: this.username, password: this.password})
+        .then(() => this.$router.push({path: '/'}))
+        .catch(error => {
+          console.log(error)
         })
+      // AuthService.login(this.username, this.password)
+      //   .then(response => {
+      //     this.showAlert = false
+      //     this.$emit('jwtUpdated', response.data.accessToken)
+      //   }).catch(err => {
+      //     console.log(err)
+      //   })
     }
   }
 }
@@ -83,15 +84,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-form {
-  text-align: right;
-}
-
-div.container-fluid {
-  margin-top: 12rem;
-}
-
-div.card {
-  max-width: 28em;
-}
 </style>

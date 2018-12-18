@@ -19,7 +19,7 @@
             </div>
           </v-card-title>
           <v-card-text class="pt-4">
-            <v-form>
+            <v-form @keyup.native.enter="register">
               <v-text-field
                 label="Username"
                 v-model="username"
@@ -74,6 +74,8 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import AuthService from '../services/auth'
+
 export default {
   name: 'Register',
   data() {
@@ -91,7 +93,9 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['showSnackbar', 'closeSnackbar']),
+    ...mapMutations({
+      showSnackbar: 'snackbar/showSnackbar'
+    }),
     openSnackbar(message, color) {
       this.showSnackbar({ text: message, color: color })
     },
@@ -102,14 +106,24 @@ export default {
       }
     },
     register() {
-      this.openSnackbar(
-        `Username ${this.username} has been registered! Redirect to homepage.`,
-        'info'
-      )
-      this.$router.push({
-        name: 'Home'
+      AuthService.registration(
+        {
+          username: this.username,
+          password: this.password,
+          fullName: this.fullname
+        }).then(() => {
+        this.openSnackbar(
+          `Username ${this.username} has been registered! Redirect to login page.`,
+          'info'
+        )
+        this.$router.push({
+          name: 'Login'
+        })
+      }).then(() => {
       })
-      // TODO: Implement
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }

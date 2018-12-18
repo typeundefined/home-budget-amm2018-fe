@@ -7,5 +7,8 @@ export default {
   authenticate() {
     // TODO: add method for check access token
     return Axios.get('/account')
+  },
+  registration(payload) {
+    return Axios.post('auth/register', payload)
   }
 }

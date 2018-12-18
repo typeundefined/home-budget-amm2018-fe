@@ -51,6 +51,8 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import AuthService from '../services/auth'
+
 export default {
   name: 'Login',
   data() {
@@ -67,18 +69,13 @@ export default {
       this.showSnackbar({ text: message })
     },
     doLogin() {
-      var reqObj = {
-        username: this.username,
-        password: this.password
-      }
-
-      this.$http.post('auth/login', reqObj).then(response => {
-        this.showAlert = false
-        this.$emit('jwtUpdated', response.data.accessToken)
-      }).catch(err => {
-        console.log(err)
-      }
-      )
+      AuthService.login(this.username, this.password)
+        .then(response => {
+          this.showAlert = false
+          this.$emit('jwtUpdated', response.data.accessToken)
+        }).catch(err => {
+          console.log(err)
+        })
     }
   }
 }

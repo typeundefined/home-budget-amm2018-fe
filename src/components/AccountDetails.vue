@@ -30,18 +30,17 @@
 </template>
 
 <script>
+import AccountService from '../services/account'
+
 export default {
   name: 'account-details',
   props: ['id'],
   methods: {
-    loadAccountDetails (pageNumber = 1, numberOfElements = 10) {
-      this.$http
-        .get('account/' + this.id + '/transactions/', {
-          params: {
-            page: pageNumber - 1,
-            size: numberOfElements
-          }
-        })
+    loadAccountDetails(pageNumber = 1, numberOfElements = 10) {
+      AccountService.getAccountTransactions(this.id, {
+        page: pageNumber - 1,
+        size: numberOfElements
+      })
         .then(resp => {
           var data = resp.data
           this.transactions = data.content
@@ -57,7 +56,7 @@ export default {
         })
     }
   },
-  data () {
+  data() {
     return {
       transactions: [],
       pagination: {},
@@ -72,7 +71,7 @@ export default {
       ]
     }
   },
-  mounted () {
+  mounted() {
     this.loadAccountDetails()
   }
 }

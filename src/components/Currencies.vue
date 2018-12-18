@@ -15,20 +15,20 @@
 </template>
 
 <script>
+import CurrencyService from '@/services/currency'
+
 export default {
   name: 'currencies',
   props: [],
-  methods: {
-    loadCurrencies() {
-      this.$http
-        .get('currency/')
-        .then(resp => {
-          this.currencies = resp.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
+  created() {
+    CurrencyService.getAllCurrencies()
+      .then(response => {
+        this.currencies = response.data
+      })
+      .catch(error => {
+        console.log(error)
+      }
+      )
   },
   data() {
     return {
@@ -36,7 +36,6 @@ export default {
     }
   },
   mounted() {
-    this.loadCurrencies()
   }
 }
 </script>

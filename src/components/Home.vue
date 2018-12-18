@@ -36,24 +36,14 @@
 
 <script>
 import AccountShort from '@/components/AccountShort'
+import AccountService from '../services/account'
 
 export default {
   name: 'Home',
   components: {
     'account-short': AccountShort
   },
-  methods: {
-    loadAccounts() {
-      this.$http
-        .get('account')
-        .then(resp => {
-          this.accountList = resp.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  },
+  methods: {},
   data() {
     return {
       accountList: [],
@@ -63,7 +53,11 @@ export default {
     }
   },
   mounted() {
-    this.loadAccounts()
+    AccountService.getAccounts().then(response => {
+      this.accountList = response.data
+    }).catch(err => {
+      console.log(err)
+    })
   }
 }
 </script>

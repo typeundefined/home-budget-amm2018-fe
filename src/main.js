@@ -3,57 +3,57 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import VueResource from 'vue-resource'
 import Vuetify from 'vuetify'
+import Axios from 'axios'
 import 'vuetify/dist/vuetify.css'
 
 import {
   store
 } from './store/store'
 
-Vue.use(VueResource)
-Vue.use(Vuetify)
-
-Vue.config.productionTip = false
-Vue.http.options.root = process.env.ROOT_API
-Vue.http.interceptors.push(
-  function (request, next) {
-    next(
-      function (response) {
-        if (!response.ok) {
-          var text = response.data.message
-          // TODO: Improve non-Spring errors handling
-          if (!text) {
-            switch (response.status) {
-              case 400:
-                text = 'Bad request'
-                break
-              case 403:
-                text = 'Not authorized'
-                break
-              case 404:
-                text = 'Not found'
-                break
-              case 500:
-                text = 'Server error'
-                break
-              case 0:
-                text = 'Request aborted'
-                break
-              default:
-                text = 'Unknown error ' + status
-            }
-          }
-          store.commit('showSnackbar', {
-            text: text,
-            color: 'error'
-          })
-        }
+function handleError(error) {
+  var text = 'Unknown error'
+  if (error.response) {
+    if (error.response.data.hasOwnProperty('message')) {
+      text = error.response.data.message
+    } else {
+      switch (error.response.status) {
+        case 400:
+          text = 'Bad request'
+          break
+        case 403:
+          text = 'Not authorized'
+          break
+        case 404:
+          text = 'Not found'
+          break
+        case 500:
+          text = 'Server error'
+          break
+        case 0:
+          text = 'Request aborted'
+          break
+        default:
+          text = 'Unknown error ' + status
       }
-    )
+    }
+  } else if (error.message) {
+    text = error.message
+  }
+  store.commit('showError', text)
+}
+
+Axios.defaults.baseURL = process.env.ROOT_API
+Axios.interceptors.response.use(
+  response => response,
+  error => {
+    handleError(error)
+    return Promise.reject(error)
   }
 )
 
+Vue.use(Vuetify)
+Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -64,14 +64,13 @@ new Vue({
   },
   methods: {
     setAccessKey(newJwt) {
-      Vue.http.headers.common['Authorization'] = 'Bearer ' + newJwt
-      console.log(this.$http.headers.common)
+      Axios.defaults.headers.common['Authorization'] = 'Bearer ' + newJwt
       this.$router.push({
         name: 'Home'
       })
     },
     logout() {
-      delete Vue.http.headers.common['Authorization']
+      Axios.defaults.headers.common['Authorization'] = ''
       this.$router.push({
         name: 'Login'
       })

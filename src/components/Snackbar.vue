@@ -3,7 +3,7 @@
     :timeout="snackbar.timeout"
     :color="snackbar.color"
     :multi-line="snackbar.multiline === true"
-    bottom
+    right
     v-model="snackbar.visible"
   >
     {{ snackbar.text }}

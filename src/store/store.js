@@ -34,6 +34,12 @@ export const store = new Vuex.Store({
       state.snackbar.multiline = false
       state.snackbar.timeout = 3000
       state.snackbar.text = null
+    },
+    showError(state, message) {
+      state.snackbar.text = message
+      state.snackbar.color = 'error'
+      state.snackbar.multiline = (message.length > 50)
+      state.snackbar.visible = true
     }
   }
 })

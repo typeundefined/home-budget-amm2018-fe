@@ -7,15 +7,7 @@
           wrap
           align-center
         >
-          <account-short
-            v-for="{id, name, description, currency, currentValue} in accountList"
-            :key="id"
-            :id="id"
-            :name="name"
-            :description="description"
-            :currency="currency.code"
-            :amount="currentValue"
-          />
+          <account-grid-list></account-grid-list>
         </v-layout>
       </v-container>
     </v-flex>
@@ -36,29 +28,35 @@
 
 <script>
 import AccountShort from '@/components/AccountShort'
-import AccountService from '../services/account'
+import AccountGridList from '@/components/AccountGridList'
+import store from '../store/store'
 
 export default {
   name: 'Home',
   components: {
-    'account-short': AccountShort
+    'account-short': AccountShort,
+    'account-grid-list': AccountGridList
+  },
+  beforeRouteEnter(to, from, next) {
+    if (store.state.accounts.accounts.length) {
+      next()
+    } else {
+      store.dispatch('accounts/getAccounts')
+        .then(next)
+        .catch(error => {
+          console.log(error)
+        })
+    }
   },
   methods: {},
   data() {
     return {
-      accountList: [],
       darkTheme: false,
       errorText: '',
       showAlert: false
     }
   },
-  mounted() {
-    AccountService.getAccounts().then(response => {
-      this.accountList = response.data
-    }).catch(err => {
-      console.log(err)
-    })
-  }
+  mounted() { }
 }
 </script>
 

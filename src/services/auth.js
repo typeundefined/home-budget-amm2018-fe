@@ -5,7 +5,7 @@ export default {
     return Axios.post('auth/login', credentials)
   },
   authenticate() {
-    // TODO: add method for check access token1
+    // TODO: add method for check access token
     return Axios.get('/account')
   }
 }

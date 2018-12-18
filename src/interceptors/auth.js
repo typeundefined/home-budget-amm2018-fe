@@ -11,6 +11,7 @@ const onError = (error) => {
     default:
       break
   }
+  Promise.reject(error)
 }
 
 const beforeRequestSuccess = (config) => {
@@ -18,12 +19,7 @@ const beforeRequestSuccess = (config) => {
   return config
 }
 
-const beforeRequestError = (error) => {
-  return Promise.reject(error)
-}
-
 export {
   onError,
-  beforeRequestSuccess,
-  beforeRequestError
+  beforeRequestSuccess
 }

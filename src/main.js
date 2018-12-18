@@ -10,38 +10,7 @@ import store from './store/store'
 import router from './router'
 
 import { beforeRequestSuccess, onError } from './interceptors/auth'
-
-function handleError(error) {
-  var text = 'Unknown error'
-  if (error.response) {
-    if (error.response.data.hasOwnProperty('message')) {
-      text = error.response.data.message
-    } else {
-      switch (error.response.status) {
-        case 400:
-          text = 'Bad request'
-          break
-        case 403:
-          text = 'Not authorized'
-          break
-        case 404:
-          text = 'Not found'
-          break
-        case 500:
-          text = 'Server error'
-          break
-        case 0:
-          text = 'Request aborted'
-          break
-        default:
-          text = 'Unknown error ' + status
-      }
-    }
-  } else if (error.message) {
-    text = error.message
-  }
-  store.commit('snackbar/showError', text)
-}
+import { handleError } from './interceptors/errorHandling'
 
 Axios.defaults.baseURL = process.env.ROOT_API
 Axios.interceptors.response.use(
@@ -53,6 +22,7 @@ Axios.interceptors.response.use(
 )
 Axios.interceptors.request.use(beforeRequestSuccess)
 Axios.interceptors.response.use(response => response, onError)
+Axios.interceptors.response.use(response => response, handleError)
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false

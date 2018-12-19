@@ -21,9 +21,9 @@ export default {
   name: 'currencies',
   props: [],
   created() {
-    CurrencyService.getAllCurrencies()
-      .then(response => {
-        this.currencies = response.data
+    CurrencyService.getCurrencies()
+      .then(data => {
+        this.currencies = data
       })
       .catch(error => {
         console.log(error)

@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 import snackbar from './modules/snackbar'
 import auth from './modules/auth'
 import accounts from './modules/accounts'
+import currencies from './modules/currencies'
+import categories from './modules/categories'
 
 Vue.use(Vuex)
 
@@ -13,7 +15,9 @@ const store = new Vuex.Store({
   modules: {
     snackbar,
     auth,
-    accounts
+    accounts,
+    currencies,
+    categories
   }
 })
 

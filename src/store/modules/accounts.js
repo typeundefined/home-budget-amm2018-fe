@@ -20,7 +20,9 @@ const actions = {
     })
   },
   addAccount({ commit }, payload) {
-    // TODO: Implement
+    return AccountService.createAccount(payload).then(data => {
+      commit('addAccount', data)
+    })
   }
 }
 
@@ -29,8 +31,11 @@ const mutations = {
     state.accounts = accounts
   },
   deleteAccount(state, id) {
-    var i = state.accounts.map(item => item.id).indexOf(id)
+    let i = state.accounts.map(item => item.id).indexOf(id)
     state.accounts.splice(i, 1)
+  },
+  addAccount(state, account) {
+    state.accounts.push(account)
   }
 }
 

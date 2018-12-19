@@ -54,20 +54,20 @@
                     ></v-autocomplete>
                   </v-flex>
                   <v-card-actions>
-                      <v-btn
-                        color="darken-1"
-                        flat="flat"
-                        @click="accountDialog = false"
-                      >
-                        Cancel
-                      </v-btn>
-                      <v-btn
-                        color="green darken-1"
-                        flat="flat"
-                        @click="createAccount(account)"
-                      >
-                        Create
-                      </v-btn>
+                    <v-btn
+                      color="darken-1"
+                      flat="flat"
+                      @click="accountDialog = false"
+                    >
+                      Cancel
+                    </v-btn>
+                    <v-btn
+                      color="green darken-1"
+                      flat="flat"
+                      @click="createAccount(account)"
+                    >
+                      Create
+                    </v-btn>
                   </v-card-actions>
                 </v-layout>
               </v-container>
@@ -119,8 +119,8 @@ export default {
           },
           description: null
         }
+        this.accountDialog = false
       })
-      this.accountDialog = false
     }
   },
   data() {

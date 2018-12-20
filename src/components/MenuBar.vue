@@ -2,6 +2,7 @@
   <v-toolbar>
     <v-toolbar-title>Home Budget</v-toolbar-title>
     <v-spacer></v-spacer>
+    <v-spacer></v-spacer>
     <v-toolbar-items>
       <v-btn
         flat
@@ -17,11 +18,18 @@
         @click="logoutUser"
       >Logout</v-btn>
     </v-toolbar-items>
+    <div>
+      <v-switch
+        :input-value="darkTheme"
+        @change="setTheme(!darkTheme)"
+        hide-details
+      ></v-switch>
+    </div>
   </v-toolbar>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'menu-bar',
@@ -30,11 +38,17 @@ export default {
   },
   methods: {
     ...mapActions({
-      logout: 'auth/logout'
+      logout: 'auth/logout',
+      setTheme: 'theme/setTheme'
     }),
     logoutUser() {
       this.logout().then(() => { this.$router.push({ path: '/login' }) })
     }
+  },
+  computed: {
+    ...mapGetters({
+      darkTheme: 'theme/darkTheme'
+    })
   }
 }
 </script>

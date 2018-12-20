@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import snackbar from './modules/snackbar'
+import theme from './modules/theme'
 import auth from './modules/auth'
 import accounts from './modules/accounts'
 import currencies from './modules/currencies'
@@ -13,11 +14,12 @@ const store = new Vuex.Store({
   state: {},
   mutations: {},
   modules: {
-    snackbar,
     auth,
     accounts,
     currencies,
-    categories
+    categories,
+    snackbar,
+    theme
   }
 })
 

@@ -16,22 +16,6 @@
         color="red"
         @click="logoutUser"
       >Logout</v-btn>
-      <v-menu :nudge-width="100">
-        <v-toolbar-title slot="activator">
-          <v-btn icon>
-            <v-icon>more_vert</v-icon>
-          </v-btn>
-        </v-toolbar-title>
-
-        <v-list>
-          <router-link
-            :to="{name: 'New Account'}"
-            tag="v-list-tile"
-          >
-            <span>New Account</span>
-          </router-link>
-        </v-list>
-      </v-menu>
     </v-toolbar-items>
   </v-toolbar>
 </template>

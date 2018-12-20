@@ -18,64 +18,65 @@
         fixed
         bottom
         right
-        color="pink"
+        color="blue"
+        @click="accountDialog = true"
       >
-        <v-icon @click="accountDialog = true">add</v-icon>
-        <v-dialog
-          v-model="accountDialog"
-          max-width="600px"
-        >
-          <v-card>
-            <v-card-title><span class="headline">Add account</span></v-card-title>
-            <v-card-text>
-              <v-container grid-list-md>
-                <v-layout wrap>
-                  <v-flex xs12>
-                    <v-text-field
-                      label="Name"
-                      v-model="account.name"
-                      :rules="nameRules"
-                      required
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex xs12>
-                    <v-text-field
-                      label="Decsription"
-                      v-model="account.description"
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex xs12>
-                    <v-autocomplete
-                      :items="currencies()"
-                      item-text="humanReadableName"
-                      item-value="code"
-                      v-model="account.currency.code"
-                      label="Currency"
-                    ></v-autocomplete>
-                  </v-flex>
-                  <v-card-actions>
-                    <v-btn
-                      color="darken-1"
-                      flat="flat"
-                      @click="accountDialog = false"
-                    >
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      color="green darken-1"
-                      flat="flat"
-                      @click="createAccount(account)"
-                    >
-                      Create
-                    </v-btn>
-                  </v-card-actions>
-                </v-layout>
-              </v-container>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
+        <v-icon>add</v-icon>
       </v-btn>
     </v-fab-transition>
+    <v-dialog
+      v-model="accountDialog"
+      max-width="600px"
+    >
+      <v-card>
+        <v-card-title><span class="headline">Add account</span></v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field
+                  label="Name"
+                  v-model="account.name"
+                  :rules="nameRules"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  label="Decsription"
+                  v-model="account.description"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-autocomplete
+                  :items="currencies()"
+                  item-text="humanReadableName"
+                  item-value="code"
+                  v-model="account.currency.code"
+                  label="Currency"
+                ></v-autocomplete>
+              </v-flex>
+              <v-card-actions>
+                <v-btn
+                  color="darken-1"
+                  flat="flat"
+                  @click="accountDialog = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                  color="green darken-1"
+                  flat="flat"
+                  @click="createAccount(account)"
+                >
+                  Create
+                </v-btn>
+              </v-card-actions>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 

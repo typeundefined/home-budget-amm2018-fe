@@ -26,6 +26,18 @@
         v-on:input="loadAccountDetails(`${pagination.pageNumber}`)"
       ></v-pagination>
     </div>
+    <v-fab-transition>
+      <v-btn
+        dark
+        fab
+        fixed
+        bottom
+        right
+        color="blue"
+      >
+        <v-icon>add</v-icon>
+      </v-btn>
+    </v-fab-transition>
   </v-flex>
 </template>
 

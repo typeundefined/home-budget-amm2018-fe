@@ -1,5 +1,5 @@
 const state = {
-  darkTheme: localStorage.getItem('darkTheme') || false
+  darkTheme: JSON.parse(localStorage.getItem('darkTheme')) || false
 }
 
 const getters = {

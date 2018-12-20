@@ -11,12 +11,12 @@
         slot-scope="props"
       >
         <td>{{ props.item.id }}</td>
+        <td class="text-xs-right">{{ props.item.reason }}</td>
         <td class="text-xs-right">{{ props.item.category }}</td>
         <td class="text-xs-right">{{ props.item.amount }}</td>
         <td class="text-xs-right">{{ props.item.newValue }}</td>
         <td class="text-xs-right">{{ props.item.type }}</td>
         <td class="text-xs-right">{{ props.item.createDate }}</td>
-        <td class="text-xs-right">{{ props.item.reason }}</td>
       </template>
     </v-data-table>
     <div class="text-xs-center pt-2">
@@ -53,8 +53,7 @@ export default {
         page: pageNumber - 1,
         size: numberOfElements
       })
-        .then(resp => {
-          var data = resp.data
+        .then(data => {
           this.transactions = data.content
 
           this.pagination = {
@@ -74,12 +73,12 @@ export default {
       pagination: {},
       headers: [
         { text: 'Id', value: 'id' },
+        { text: 'Reason', value: 'reason' },
         { text: 'Category', align: 'left', sortable: false, value: 'category' },
         { text: 'Amount', value: 'amount' },
         { text: 'New Value', value: 'newValue' },
         { text: 'Type', value: 'type' },
-        { text: 'Created Date', value: 'createdDate' },
-        { text: 'Reason', value: 'reason' }
+        { text: 'Created Date', value: 'createdDate' }
       ]
     }
   },

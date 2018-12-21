@@ -4,7 +4,6 @@ export default {
   getCategories() {
     return Axios.get('/category')
       .then(response => response.data)
-      .catch(error => Promise.reject(error))
   },
   createCaregory(payload) {
     // TODO: Imlement

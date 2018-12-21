@@ -1,12 +1,14 @@
 import store from '../store/store'
 
 const onError = (error) => {
-  switch (error.response.status) {
-    case 401:
-      store.dispatch('auth/logout')
-      break
-    default:
-      break
+  if (error.response) {
+    switch (error.response.status) {
+      case 401:
+        store.dispatch('auth/logout')
+        break
+      default:
+        break
+    }
   }
   Promise.reject(error)
 }

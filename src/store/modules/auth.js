@@ -22,9 +22,9 @@ const getters = {
 const actions = {
   login({ commit }, credentials) {
     return AuthService.login(credentials)
-      .then(response => {
+      .then(data => {
         commit('setLoggedIn', true)
-        commit('setAccessToken', response.data.accessToken)
+        commit('setAccessToken', data.accessToken)
       })
   },
   authenticate({ commit }) {

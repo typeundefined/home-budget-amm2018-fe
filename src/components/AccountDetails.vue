@@ -10,13 +10,25 @@
         slot="items"
         slot-scope="props"
       >
-        <td>{{ props.item.id }}</td>
-        <td class="text-xs-right">{{ props.item.reason }}</td>
-        <td class="text-xs-right">{{ props.item.category }}</td>
-        <td class="text-xs-right">{{ props.item.amount }}</td>
-        <td class="text-xs-right">{{ props.item.newValue }}</td>
-        <td class="text-xs-right">{{ props.item.type }}</td>
-        <td class="text-xs-right">{{ props.item.createDate }}</td>
+        <td class="text-xs-left">{{ props.item.createDate | moment }}</td>
+        <td class="text-xs-left">{{ props.item.type }}</td>
+        <td class="text-xs-left">{{ props.item.reason }}</td>
+        <td class="text-xs-left">{{ props.item.amount }}</td>
+        <td class="text-xs-left">{{ props.item.newValue }}</td>
+        <td class="text-xs-left">{{ props.item.category }}</td>
+        <td class="justify-center layout px-0">
+          <v-icon
+            small
+            class="mr-2"
+          >
+            edit
+          </v-icon>
+          <v-icon
+            small
+          >
+            delete
+          </v-icon>
+        </td>
       </template>
     </v-data-table>
     <div class="text-xs-center pt-2">
@@ -43,6 +55,7 @@
 
 <script>
 import AccountService from '../services/account'
+import moment from 'moment'
 
 export default {
   name: 'account-details',
@@ -51,7 +64,8 @@ export default {
     loadAccountDetails(pageNumber = 1, numberOfElements = 10) {
       AccountService.getAccountTransactions(this.id, {
         page: pageNumber - 1,
-        size: numberOfElements
+        size: numberOfElements,
+        sort: 'createDate,desc'
       })
         .then(data => {
           this.transactions = data.content
@@ -67,18 +81,26 @@ export default {
         })
     }
   },
+  // TODO: delete and edit
+  filters: {
+    moment: (date) => {
+      if (date) {
+        return moment(String(date)).format('hh:mm DD.MM.YYYY')
+      }
+    }
+  },
   data() {
     return {
       transactions: [],
       pagination: {},
       headers: [
-        { text: 'Id', value: 'id' },
-        { text: 'Reason', value: 'reason' },
-        { text: 'Category', align: 'left', sortable: false, value: 'category' },
-        { text: 'Amount', value: 'amount' },
-        { text: 'New Value', value: 'newValue' },
-        { text: 'Type', value: 'type' },
-        { text: 'Created Date', value: 'createdDate' }
+        { text: 'Created Date', sortable: false, value: 'createdDate' },
+        { text: 'Type', sortable: false, value: 'type' },
+        { text: 'Reason', sortable: false, value: 'reason' },
+        { text: 'Amount', sortable: false, value: 'amount' },
+        { text: 'New Value', sortable: false, value: 'newValue' },
+        { text: 'Category', sortable: false, value: 'category' },
+        { text: 'Actions', sortable: false, value: 'actions' }
       ]
     }
   },

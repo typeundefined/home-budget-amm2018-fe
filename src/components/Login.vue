@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     doLogin () {
-      var reqObj = {
+      let reqObj = {
         username: this.username,
         password: this.password
       }

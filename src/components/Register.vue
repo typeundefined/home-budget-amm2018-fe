@@ -59,7 +59,21 @@ export default {
       }
     },
     register () {
-      console.log('IMPLEMENT ME')
+      let reqObj = {
+        username: this.username,
+        fullName: this.fullname,
+        password: this.password
+      }
+
+      this.$http.post('auth/register', reqObj)
+        .then(response => {
+          this.showAlert = false
+          this.$emit('jwtUpdated', response.data.accessToken)
+        })
+        .catch(err => {
+          this.errorText = err.data.message
+          this.showAlert = true
+        })
     }
   }
 }

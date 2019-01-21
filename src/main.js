@@ -28,6 +28,7 @@ new Vue({
     },
     logout () {
       delete Vue.http.headers.common['Authorization']
+      localStorage.removeItem('accessToken')
       this.$router.push({name: 'Login'})
     }
   },

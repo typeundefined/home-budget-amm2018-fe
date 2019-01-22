@@ -34,7 +34,7 @@ export default {
     loadAccounts () {
       this.$http.get('account', {
         headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+          'Authorization': localStorage.getItem('accessToken')
         }
       }).then(resp => {
         this.accountList = resp.data

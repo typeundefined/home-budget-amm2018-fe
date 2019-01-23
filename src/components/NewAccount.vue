@@ -33,10 +33,14 @@ export default {
   name: 'NewAccount',
   data () {
     return {
+      currencyList: [],
       name: '',
       description: '',
       code: ''
     }
+  },
+  mounted () {
+    this.getCurrencyList()
   },
   methods: {
     createAccount () {
@@ -59,6 +63,18 @@ export default {
           this.errorText = err.data.message
           this.showAlert = true
         })
+    },
+    getCurrencyList () {
+      this.$http.get('currency', {
+        headers: {
+          'Authorization': localStorage.getItem('accessToken')
+        }
+      }).then(resp => {
+        this.currencyList = resp.data
+      }).catch(err => {
+        // TODO: improve this
+        console.log(err)
+      })
     }
   }
 }

@@ -16,8 +16,14 @@
               <input v-model="description" name="description" id="description">
             </div>
             <div class="form-group">
-              <label for="code">Currency code: </label>
-              <input v-model="code" name="code" id="code">
+              <div>
+                <b-dropdown id="ddown-divider" class="m-2" v-bind:text="chosenCurrency">
+                  <b-dropdown-item-button v-for="currency in currencyList"
+                                          :key="currency.code"
+                                          @click="setCurrency(currency.code, currency.humanReadableName)"
+                                          >{{currency.code}} - {{currency.humanReadableName}}</b-dropdown-item-button>
+                </b-dropdown>
+              </div>
             </div>
             <b-btn @click="createAccount" variant="info" class="m-1">Create</b-btn>
           </form>
@@ -33,6 +39,7 @@ export default {
   name: 'NewAccount',
   data () {
     return {
+      chosenCurrency: 'Select currency',
       currencyList: [],
       name: '',
       description: '',
@@ -43,6 +50,9 @@ export default {
     this.getCurrencyList()
   },
   methods: {
+    setCurrency (code, humanReadableName) {
+      this.chosenCurrency = code + ' - ' + humanReadableName
+    },
     createAccount () {
       let accObj = {
         name: this.name,

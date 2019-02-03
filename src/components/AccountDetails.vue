@@ -29,7 +29,7 @@ export default {
         this.transactionList = resp.data.content
         for (let i = 0; i < this.transactionList.length; i++) {
           console.log(this.transactionList[i])
-          if (this.transactionList[i].type === 'withdraw') {
+          if (this.transactionList[i].type === 'withdrawal') {
             this.transactionList[i]._cellVariants = {type: 'danger'}
           } else if (this.transactionList[i].type === 'deposit') {
             this.transactionList[i]._cellVariants = {type: 'success'}
@@ -37,7 +37,6 @@ export default {
             this.transactionList[i]._cellVariants = {type: 'active'}
           }
         }
-        console.log(this.transactionList)
       }).catch(err => {
         // TODO: improve this
         console.log(err)

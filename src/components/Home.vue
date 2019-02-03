@@ -32,11 +32,7 @@ export default {
   },
   methods: {
     loadAccounts () {
-      this.$http.get('account', {
-        headers: {
-          'Authorization': localStorage.getItem('accessToken')
-        }
-      }).then(resp => {
+      this.$http.get('account').then(resp => {
         this.accountList = resp.data
       }).catch(err => {
         // TODO: improve this

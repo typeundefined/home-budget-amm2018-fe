@@ -25,11 +25,7 @@ export default {
   },
   methods: {
     loadTransactions () {
-      this.$http.get('account/' + this.$route.params.id + '/transactions', {
-        headers: {
-          'Authorization': localStorage.getItem('accessToken')
-        }
-      }).then(resp => {
+      this.$http.get('account/' + this.$route.params.id + '/transactions').then(resp => {
         this.transactionList = resp.data.content
         for (let i = 0; i < this.transactionList.length; i++) {
           console.log(this.transactionList[i])

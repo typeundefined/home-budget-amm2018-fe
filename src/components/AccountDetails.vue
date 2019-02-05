@@ -7,9 +7,20 @@
         <b-btn class="btn-success mb-3" @click="createAccount">New account</b-btn>
         <b-btn class="mb-3">Add expense</b-btn>
       </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm p-3">
+            <div class="float-left">
+              <h5>Range:</h5>
+              <date-picker v-model="time2" type="datetime" lang="en" range format="YYYY-MM-DD HH:mm:ss" :time-picker-options="timePickerOptions"></date-picker>
+            </div>
+          </div>
+        </div>
       <template>
+        <div class="top"></div>
         <b-table striped hover :items="transactionList" :fields="fields"></b-table>
       </template>
+      </div>
 
     </div>
   </div>
@@ -17,10 +28,15 @@
 
 <script>
 import MenuBar from '@/components/MenuBar'
+import DateTime from '@/components/DateTime'
+import DatePicker from 'vue2-datepicker'
 
 export default {
   name: 'Home',
   components: {
+    DatePicker,
+    time2: '',
+    'datetime': DateTime,
     'menu-bar': MenuBar
   },
   methods: {
@@ -49,6 +65,9 @@ export default {
   data () {
     return {
       transactionList: [],
+      timePickerOptions: {
+        range: true
+      },
       fields: [
         {
           key: 'id',

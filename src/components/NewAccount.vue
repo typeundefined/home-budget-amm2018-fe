@@ -8,14 +8,17 @@
           <br>
           <form id="createAccount">
             <div class="form-group">
+              <small :show="nameError != null" class="form-text text-error">{{nameError}}</small>
               <label for="name">Name: </label>
-              <input v-model="name" name="name" id="name">
+              <input v-model="name" @change="checkName" name="name" id="name">
             </div>
             <div class="form-group">
+              <small :show="descriptionError != null" class="form-text text-error">{{descriptionError}}</small>
               <label for="description">Description: </label>
-              <input v-model="description" name="description" id="description">
+              <input v-model="description" @change="checkDescription" name="description" id="description">
             </div>
             <div class="form-group">
+              <small :show="currencyError != null" class="form-text text-error">{{currencyError}}</small>
               <div>
                 <b-dropdown id="ddown-divider" class="m-2" v-bind:text="chosenCurrency">
                   <b-dropdown-item-button v-for="currency in currencyList"
@@ -25,7 +28,7 @@
                 </b-dropdown>
               </div>
             </div>
-            <b-btn @click="createAccount" variant="info" class="m-1">Create</b-btn>
+            <b-btn :disabled="nameError != null || descriptionError != null || currencyError != null" @click="createAccount" variant="info" class="m-1">Create</b-btn>
           </form>
         </div>
       </div>
@@ -39,7 +42,10 @@ export default {
   name: 'NewAccount',
   data () {
     return {
-      chosenCurrency: 'Select currency',
+      chosenCurrency: '"Currency"',
+      nameError: 'Enter name',
+      descriptionError: 'Enter description',
+      currencyError: 'Select currency',
       currencyList: [],
       name: '',
       description: '',
@@ -50,8 +56,27 @@ export default {
     this.getCurrencyList()
   },
   methods: {
+    checkName () {
+      if (this.name === '' || this.name == null) {
+        this.nameError = 'Enter name'
+      } else {
+        this.nameError = null
+      }
+    },
+    checkDescription () {
+      if (this.description === '' || this.description == null) {
+        this.descriptionError = 'Enter description'
+      } else {
+        this.descriptionError = null
+      }
+    },
     setCurrency (code, humanReadableName) {
       this.chosenCurrency = code + ' - ' + humanReadableName
+      if (this.currency === '' || this.currency == null) {
+        this.currencyError = 'Select currency'
+      } else {
+        this.currencyError = null
+      }
     },
     createAccount () {
       let accObj = {

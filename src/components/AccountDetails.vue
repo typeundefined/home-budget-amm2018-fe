@@ -12,7 +12,7 @@
           <div class="col-sm p-3">
             <div class="float-left">
               <h5>Range:</h5>
-              <date-picker v-model="time2" type="datetime" lang="en" range format="YYYY-MM-DD HH:mm:ss" :time-picker-options="timePickerOptions"></date-picker>
+              <date-picker v-model="time" type="datetime" @change="dateFilter" lang="en" range format="YYYY-MM-DD HH:mm:ss" :time-picker-options="timePickerOptions"></date-picker>
             </div>
           </div>
         </div>
@@ -35,7 +35,6 @@ export default {
   name: 'Home',
   components: {
     DatePicker,
-    time2: '',
     'datetime': DateTime,
     'menu-bar': MenuBar
   },
@@ -60,10 +59,14 @@ export default {
     },
     createAccount () {
       this.$router.push({name: 'NewAccount'})
+    },
+    dateFilter () {
+      console.log('test')
     }
   },
   data () {
     return {
+      time: null,
       transactionList: [],
       timePickerOptions: {
         range: true

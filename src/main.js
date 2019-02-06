@@ -5,12 +5,16 @@ import App from './App'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import VueResource from 'vue-resource'
+import Datetime from 'vue-datetime'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css'
 
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
+Vue.use(Datetime)
 
 Vue.config.productionTip = false
 Vue.http.options.root = process.env.ROOT_API

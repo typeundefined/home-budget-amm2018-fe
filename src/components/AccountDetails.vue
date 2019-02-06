@@ -11,8 +11,8 @@
         <div class="row">
           <div class="col-sm p-3">
             <div class="float-left">
-              <h5>Range:</h5>
-              <date-picker v-model="time" type="datetime" @change="dateFilter" lang="en" range format="YYYY-MM-DD HH:mm:ss" :time-picker-options="timePickerOptions"></date-picker>
+              <date-picker v-model="time" type="datetime" :lang="lang" range date-format="YYYY-MM-DD HH:mm" format="YYYY-MM-DD HH:mm"></date-picker>
+              <b-btn @click="dateFilter" variant="light" class="m-1">Filter</b-btn>
             </div>
           </div>
         </div>
@@ -61,15 +61,22 @@ export default {
       this.$router.push({name: 'NewAccount'})
     },
     dateFilter () {
-      console.log('test')
+      console.log(this.time[0].getFullYear() + ' ' + this.time[0].getDate() + ' ' + this.time[0].getTime())
+      console.log(this.time[1])
     }
   },
   data () {
     return {
       time: null,
       transactionList: [],
-      timePickerOptions: {
-        range: true
+      lang: {
+        days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        pickers: ['next 7 days', 'next 30 days', 'previous 7 days', 'previous 30 days'],
+        placeholder: {
+          date: 'Select Date',
+          dateRange: 'Select Date Range'
+        }
       },
       fields: [
         {

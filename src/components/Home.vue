@@ -52,7 +52,7 @@ export default {
     createAccount () {
       this.$router.push({name: 'NewAccount'})
     },
-    ok(status) {
+    showNotification(status) {
       this.$snack.success({
         text: 'Conversa arquivada',
         button: status
@@ -69,7 +69,7 @@ export default {
   },
   mounted () {
     this.loadAccounts()
-    this.ok()
+    this.showNotification()
   }
 }
 </script>

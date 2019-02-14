@@ -61,6 +61,7 @@ export default {
       this.$router.push({name: 'NewAccount'})
     },
     dateFilter () {
+      // to=2018-11-21T15:36:38%2B03:00
       console.log(this.time[0].getFullYear() + ' ' + this.time[0].getDate() + ' ' + this.time[0].getTime())
       console.log(this.time[1])
     }

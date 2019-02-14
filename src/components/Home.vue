@@ -42,22 +42,10 @@ export default {
     loadAccounts () {
       this.$http.get('account').then(resp => {
         this.accountList = resp.data
-        // this.ok(resp.status)
-      }).catch(err => {
-        // TODO: improve this
-        console.log(err.status)
-        // this.ok(err.toString())
       })
     },
     createAccount () {
       this.$router.push({name: 'NewAccount'})
-    },
-    showNotification(status) {
-      this.$snack.success({
-        text: 'Conversa arquivada',
-        button: status
-      })
-      this.$snack.metodo('My Message')
     }
   },
   data () {
@@ -69,7 +57,6 @@ export default {
   },
   mounted () {
     this.loadAccounts()
-    this.showNotification()
   }
 }
 </script>

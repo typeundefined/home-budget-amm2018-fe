@@ -7,9 +7,21 @@
         <b-btn class="btn-success mb-3" @click="createAccount">New account</b-btn>
         <b-btn class="mb-3">Add expense</b-btn>
       </div>
-      <template>
-        <b-table striped hover :items="transactionList" :fields="fields"></b-table>
-      </template>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm p-3">
+            <div class="float-left">
+              <date-picker v-model="time" type="datetime" :lang="lang" range date-format="YYYY-MM-DD HH:mm"
+                           format="YYYY-MM-DD HH:mm"></date-picker>
+              <b-btn @click="dateFilter" variant="light" class="m-1">Get accounts with time range filter</b-btn>
+            </div>
+          </div>
+        </div>
+        <template>
+          <div class="top"></div>
+          <b-table striped hover :items="transactionList" :fields="fields"></b-table>
+        </template>
+      </div>
 
     </div>
   </div>
@@ -17,23 +29,23 @@
 
 <script>
 import MenuBar from '@/components/MenuBar'
+import DateTime from '@/components/DateTime'
+import DatePicker from 'vue2-datepicker'
 
 export default {
   name: 'Home',
   components: {
+    DatePicker,
+    'datetime': DateTime,
     'menu-bar': MenuBar
   },
   methods: {
     loadTransactions () {
-      this.$http.get('account/' + this.$route.params.id + '/transactions', {
-        headers: {
-          'Authorization': localStorage.getItem('accessToken')
-        }
-      }).then(resp => {
+      this.$http.get('account/' + this.$route.params.id + '/transactions').then(resp => {
         this.transactionList = resp.data.content
         for (let i = 0; i < this.transactionList.length; i++) {
           console.log(this.transactionList[i])
-          if (this.transactionList[i].type === 'withdraw') {
+          if (this.transactionList[i].type === 'withdrawal') {
             this.transactionList[i]._cellVariants = {type: 'danger'}
           } else if (this.transactionList[i].type === 'deposit') {
             this.transactionList[i]._cellVariants = {type: 'success'}
@@ -41,19 +53,29 @@ export default {
             this.transactionList[i]._cellVariants = {type: 'active'}
           }
         }
-        console.log(this.transactionList)
-      }).catch(err => {
-        // TODO: improve this
-        console.log(err)
       })
     },
     createAccount () {
       this.$router.push({name: 'NewAccount'})
+    },
+    dateFilter () {
+      // TODO: implement this
+      console.log('Implement this')
     }
   },
   data () {
     return {
+      time: null,
       transactionList: [],
+      lang: {
+        days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        pickers: ['next 7 days', 'next 30 days', 'previous 7 days', 'previous 30 days'],
+        placeholder: {
+          date: 'Select Date',
+          dateRange: 'Select Date Range'
+        }
+      },
       fields: [
         {
           key: 'id',

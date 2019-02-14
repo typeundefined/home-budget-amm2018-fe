@@ -16,6 +16,22 @@ Vue.config.productionTip = false
 Vue.http.options.root = process.env.ROOT_API
 
 /* eslint-disable no-new */
+
+Vue.http.interceptors.push(
+  function (request, next) {
+    request.headers.set('Authorization', localStorage.getItem('accessToken'))
+    request.headers.set('Accept', 'application/json')
+    next(
+      function (response) {
+        if (response.status === 403) {
+          localStorage.removeItem('accessToken')
+          this.$router.push({name: 'Login'})
+        }
+      }
+    )
+  }
+)
+
 new Vue({
   el: '#app',
   router,

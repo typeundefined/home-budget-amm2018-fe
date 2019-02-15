@@ -34,9 +34,6 @@ export default {
     loadAccounts () {
       this.$http.get('accounts').then(resp => {
         this.accountList = resp.data
-      }).catch(err => {
-        // TODO: improve this
-        console.log(err)
       })
     },
     createAccount () {
@@ -55,7 +52,3 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>

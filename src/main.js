@@ -5,17 +5,38 @@ import App from './App'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import VueResource from 'vue-resource'
+import Datetime from 'vue-datetime'
+import 'vue-snack/dist/vue-snack.min.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css'
 
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
+Vue.use(Datetime)
 
 Vue.config.productionTip = false
 Vue.http.options.root = process.env.ROOT_API
 
 /* eslint-disable no-new */
+
+Vue.http.interceptors.push(
+  function (request, next) {
+    request.headers.set('Authorization', localStorage.getItem('accessToken'))
+    request.headers.set('Accept', 'application/json')
+    next(
+      function (response) {
+        if (response.status === 403) {
+          localStorage.removeItem('accessToken')
+          this.$router.push({name: 'Login'})
+        }
+      }
+    )
+  }
+)
+
 new Vue({
   el: '#app',
   router,
@@ -28,6 +49,7 @@ new Vue({
     },
     logout () {
       delete Vue.http.headers.common['Authorization']
+      localStorage.removeItem('accessToken')
       this.$router.push({name: 'Login'})
     }
   },

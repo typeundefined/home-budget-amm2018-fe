@@ -42,14 +42,14 @@ export default {
   name: 'NewAccount',
   data () {
     return {
-      chosenCurrency: '"Currency"',
+      chosenCurrency: 'Currency',
       nameError: 'Enter name',
       descriptionError: 'Enter description',
       currencyError: 'Select currency',
       currencyList: [],
       name: '',
       description: '',
-      code: ''
+      currencyCode: ''
     }
   },
   mounted () {
@@ -72,7 +72,8 @@ export default {
     },
     setCurrency (code, humanReadableName) {
       this.chosenCurrency = code + ' - ' + humanReadableName
-      if (this.currency === '' || this.currency == null) {
+      this.currencyCode = code
+      if (this.currencyCode === '' || this.currencyCode == null) {
         this.currencyError = 'Select currency'
       } else {
         this.currencyError = null
@@ -82,7 +83,7 @@ export default {
       let accObj = {
         name: this.name,
         description: this.description,
-        currency: { code: this.code }
+        currency: { code: this.currencyCode }
       }
 
       this.$http.post('account', accObj, {

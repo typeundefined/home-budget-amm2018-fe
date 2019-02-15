@@ -13,7 +13,7 @@
             <div class="float-left">
               <date-picker v-model="time" type="datetime" :lang="lang" range date-format="YYYY-MM-DD HH:mm"
                            format="YYYY-MM-DD HH:mm"></date-picker>
-              <b-btn @click="dateFilter" variant="light" class="m-1">Get accounts with time range filter</b-btn>
+              <b-btn @click="loadTransactions" variant="light" class="m-1">Get accounts with time range filter</b-btn>
             </div>
           </div>
         </div>
@@ -41,26 +41,21 @@ export default {
   },
   methods: {
     loadTransactions () {
-      this.$http.get('account/' + this.$route.params.id + '/transactions').then(resp => {
-        this.transactionList = resp.data.content
-        for (let i = 0; i < this.transactionList.length; i++) {
-          console.log(this.transactionList[i])
-          if (this.transactionList[i].type === 'withdrawal') {
-            this.transactionList[i]._cellVariants = {type: 'danger'}
-          } else if (this.transactionList[i].type === 'deposit') {
-            this.transactionList[i]._cellVariants = {type: 'success'}
-          } else {
-            this.transactionList[i]._cellVariants = {type: 'active'}
-          }
-        }
-      })
+      if (this.time != null && this.time[0] != null && this.time[1] != null) {
+        this.$http.get('account/' + this.$route.params.id + '/transactions', {params: {
+          from: this.time[0].toISOString(),
+          to: this.time[1].toISOString()
+        }}).then(resp => {
+          this.transactionList = setColorToTransaction(resp.data.content)
+        })
+      } else {
+        this.$http.get('account/' + this.$route.params.id + '/transactions').then(resp => {
+          this.transactionList = setColorToTransaction(resp.data.content)
+        })
+      }
     },
     createAccount () {
       this.$router.push({name: 'NewAccount'})
-    },
-    dateFilter () {
-      // TODO: implement this
-      console.log('Implement this')
     }
   },
   data () {
@@ -117,5 +112,18 @@ export default {
   mounted () {
     this.loadTransactions()
   }
+}
+function setColorToTransaction (transactionList) {
+  for (let i = 0; i < transactionList.length; i++) {
+    console.log(transactionList[i])
+    if (transactionList[i].type === 'withdrawal') {
+      transactionList[i]._cellVariants = {type: 'danger'}
+    } else if (transactionList[i].type === 'deposit') {
+      transactionList[i]._cellVariants = {type: 'success'}
+    } else {
+      transactionList[i]._cellVariants = {type: 'active'}
+    }
+  }
+  return transactionList
 }
 </script>

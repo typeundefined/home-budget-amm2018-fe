@@ -1,5 +1,5 @@
 <template>
-  <vue-datepicker-local v-model="time" />
+  <vue-datepicker-local v-model="time"/>
 </template>
 
 <script>

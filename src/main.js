@@ -6,7 +6,6 @@ import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import VueResource from 'vue-resource'
 import Datetime from 'vue-datetime'
-import VueSnackbar from 'vue-snack'
 import 'vue-snack/dist/vue-snack.min.css'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -17,7 +16,6 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css'
 Vue.use(BootstrapVue)
 Vue.use(VueResource)
 Vue.use(Datetime)
-Vue.use(VueSnackbar)
 
 Vue.config.productionTip = false
 Vue.http.options.root = process.env.ROOT_API
@@ -42,7 +40,7 @@ Vue.http.interceptors.push(
 new Vue({
   el: '#app',
   router,
-  components: {App},
+  components: { App },
   methods: {
     setAccessKey (newJwt) {
       Vue.http.headers.common['Authorization'] = 'Bearer ' + newJwt

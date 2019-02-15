@@ -11,15 +11,16 @@
         <div class="row">
           <div class="col-sm p-3">
             <div class="float-left">
-              <date-picker v-model="time" type="datetime" :lang="lang" range date-format="YYYY-MM-DD HH:mm" format="YYYY-MM-DD HH:mm"></date-picker>
-              <b-btn @click="dateFilter" variant="light" class="m-1">Filter</b-btn>
+              <date-picker v-model="time" type="datetime" :lang="lang" range date-format="YYYY-MM-DD HH:mm"
+                           format="YYYY-MM-DD HH:mm"></date-picker>
+              <b-btn @click="dateFilter" variant="light" class="m-1">Get accounts with time range filter</b-btn>
             </div>
           </div>
         </div>
-      <template>
-        <div class="top"></div>
-        <b-table striped hover :items="transactionList" :fields="fields"></b-table>
-      </template>
+        <template>
+          <div class="top"></div>
+          <b-table striped hover :items="transactionList" :fields="fields"></b-table>
+        </template>
       </div>
 
     </div>
@@ -52,18 +53,14 @@ export default {
             this.transactionList[i]._cellVariants = {type: 'active'}
           }
         }
-      }).catch(err => {
-        // TODO: improve this
-        console.log(err)
       })
     },
     createAccount () {
       this.$router.push({name: 'NewAccount'})
     },
     dateFilter () {
-      // to=2018-11-21T15:36:38%2B03:00
-      console.log(this.time[0].getFullYear() + ' ' + this.time[0].getDate() + ' ' + this.time[0].getTime())
-      console.log(this.time[1])
+      // TODO: implement this
+      console.log('Implement this')
     }
   },
   data () {

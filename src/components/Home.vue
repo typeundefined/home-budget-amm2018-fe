@@ -6,14 +6,6 @@
     <div class="d-flex p-3 flex-column">
       <b-btn class="btn-success mb-3" @click="createAccount">New account</b-btn>
       <b-btn class="mb-3">Add expense</b-btn>
-      <b-btn
-        block
-        color="primary"
-        dark
-        @click="ok"
-      >
-        Show Snackbar
-      </b-btn>
     </div>
     <div class="d-flex flex-wrap p-3">
       <account-short v-for="{id, name, description, currency, currentValue} in accountList" :key="id"

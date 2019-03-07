@@ -32,12 +32,16 @@ export default {
   },
   methods: {
     loadAccounts () {
-      this.$http.get('accounts').then(resp => {
-        this.accountList = resp.data
-      }).catch(err => {
-        // TODO: improve this
-        console.log(err)
-      })
+      this.$http.get('accounts/my').then(
+        response => {
+          this.showAlert = false
+          this.accountList = response.data
+        },
+        err => {
+          this.showAlert = true
+          this.errorText = err.data.message
+        }
+      )
     },
     createAccount () {
       this.$router.push({name: 'NewAccount'})

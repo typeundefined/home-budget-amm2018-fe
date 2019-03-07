@@ -59,7 +59,22 @@ export default {
       }
     },
     register () {
-      console.log('IMPLEMENT ME')
+      var reqObj = {
+        'username': this.username,
+        'password': this.password,
+        'fullName': this.fullname
+      }
+      this.$http.post('auth/register', reqObj).then(
+        response => {
+          this.showAlert = false
+          this.showSuccess = true
+        },
+        err => {
+          this.showAlert = true
+          this.showSuccess = false
+          this.errorText = err.data.message
+        }
+      )
     }
   }
 }
